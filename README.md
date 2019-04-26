@@ -11,6 +11,6 @@ params:
 
 -n or --name for names
 
--t --threshold for setting probability threshold (optional, by default 0.8)
+-t or --threshold for setting probability threshold (optional, by default 0.8)
 
 resuls are truned in json format
