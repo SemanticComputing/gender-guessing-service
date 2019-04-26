@@ -5,7 +5,6 @@ Created on 26 Apr 2019
 '''
 
 import re
-from collections import Counter
 from sparqlQueries import SparqlQueries
 
 class GenderIdentifier(object):
