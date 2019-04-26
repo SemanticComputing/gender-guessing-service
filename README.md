@@ -13,4 +13,8 @@ params:
 
 -t or --threshold for setting probability threshold (optional, by default 0.8)
 
-resuls are retuned in json format
+results are retuned in json format
+
+```
+{'name': 'Minna Susanna Claire Tamper', 'gender': 'Female'}
+```
