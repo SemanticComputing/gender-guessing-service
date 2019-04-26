@@ -7,8 +7,8 @@ Using person name ontology (http://light.onki.fi/henkilonimisto/en/) the applica
 
 ## Dependencies
 
-Python 3.5.2
-SparqlWrapper
+* Python 3.5.2
+* SparqlWrapper
 
 ## Usage
 
