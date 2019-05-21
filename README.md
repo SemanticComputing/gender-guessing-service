@@ -11,7 +11,6 @@ Using person name ontology (http://light.onki.fi/henkilonimisto/en/) the applica
 * SparqlWrapper
 * flask
 * flask_cors
-* requests
 
 For more information, check requirements.txt
 
