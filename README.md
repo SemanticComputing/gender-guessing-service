@@ -3,7 +3,7 @@
 
 ## About
 
-Using person name ontology (http://light.onki.fi/henkilonimisto/en/) the application calculates statistically most probable gender for a person name. It uses the first names to identify person's gender and therefore using more than one first names is recommended to get accurate reading. It cannot be used yet to identify other than finnish and maybe swedish names and it only can identify 2 genders: male and female (because the ontology uses data from the Population Register Centre). 
+Using person name ontology (http://light.onki.fi/henkilonimisto/en/) the application calculates statistically most probable gender for a person name. It uses the first names to identify person's gender and therefore using more than one first names is recommended to get accurate reading. It cannot be used yet to identify other than finnish and maybe swedish names and it only can identify 2 genders: male and female (because the ontology uses data from the Population Register Centre).
 
 ## Dependencies
 
@@ -21,12 +21,12 @@ For more information, check requirements.txt
 To run:
 
 ```
-python3 run.py -n "Minna Susanna Claire Tamper" -t 0.6 
-``` 
+python3 run.py -n "Minna Susanna Claire Tamper" -t 0.6
+```
 
 #### Parameters
 
-params: 
+params:
 
 -n or --name for names
 
@@ -65,3 +65,8 @@ Results are retuned in json format:
 {"results":{"gender":"Female","name":"Minna Susanna Claire Tamper","probabilities":{"Female":0.9999999999946162,"Male":5.383809595933431e-12}}}
 ```
 
+## Running in Docker
+
+`./docker-build.sh`: builds the service
+
+`./docker-run.sh`: runs the service
