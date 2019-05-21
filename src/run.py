@@ -101,6 +101,7 @@ USAGE
         #    print(inpath)
         json_response['name']= genId.get_name()
         json_response['gender']= genId.get_gender()
+        json_response['probabilities']= genId.get_gender_probabilities()
         return json_response
     except KeyboardInterrupt:
         ### handle keyboard interrupt ###

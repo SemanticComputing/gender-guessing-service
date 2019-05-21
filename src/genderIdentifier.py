@@ -23,12 +23,15 @@ class GenderIdentifier(object):
         self.males = dict()
         self.other = dict()
         self.archive = set()
+        self._probabilities = dict()
                 
         self._name = name
         if len(name) > 0:
-            self._gender = self.identify_gender(name)
+            self._gender, self._probabilities = self.identify_gender(name)
         else:
-            self.gender = None        
+            self.gender = None   
+            
+                 
     # getters
         
     def get_name(self):
@@ -39,6 +42,9 @@ class GenderIdentifier(object):
     
     def get_probability_threshold(self):
         return self._probability_threshold
+    
+    def get_gender_probabilities(self):
+        return self._probabilities
     
     # setters
     
@@ -102,10 +108,10 @@ class GenderIdentifier(object):
         probs[1] /= tot
         
         if probs[0]>self._probability_threshold:
-            return "Male"
+            return "Male",{"Male":probs[0], "Female": probs[1]}
         elif probs[1]>self._probability_threshold:
-            return "Female"
+            return "Female",{"Male":probs[0], "Female": probs[1]}
         else:
             print("Unambiguous {}: {}/{}".format(txt, probs[0], probs[1]))
         
-        return None
+        return "Unknown", {"Male":probs[0], "Female": probs[1]}
