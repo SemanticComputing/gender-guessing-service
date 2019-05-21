@@ -4,7 +4,6 @@ ENV GUNICORN_WORKER_AMOUNT 4
 ENV GUNICORN_TIMEOUT 300
 ENV GUNICORN_RELOAD ""
 
-#RUN apk add python3 python3-dev gcc libc-dev libxml2-dev libxslt-dev && rm -rf /var/cache/apk/*
 RUN apk add python3 && rm -rf /var/cache/apk/*
 
 COPY requirements.txt ./requirements.txt
