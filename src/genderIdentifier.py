@@ -108,10 +108,10 @@ class GenderIdentifier(object):
         probs[1] /= tot
         
         if probs[0]>self._probability_threshold:
-            return "Male",{"Male":probs[0], "Female": probs[1]}
+            return "Male",{"Female": probs[1], "Male":probs[0]}
         elif probs[1]>self._probability_threshold:
-            return "Female",{"Male":probs[0], "Female": probs[1]}
+            return "Female",{"Female": probs[1], "Male":probs[0]}
         else:
             print("Unambiguous {}: {}/{}".format(txt, probs[0], probs[1]))
         
-        return "Unknown", {"Male":probs[0], "Female": probs[1]}
+        return "Unknown", {"Female": probs[1], "Male":probs[0]}
