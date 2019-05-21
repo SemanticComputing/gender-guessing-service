@@ -38,7 +38,7 @@ params:
 Results are retuned in json format:
 
 ```
-{'name': 'Minna Susanna Claire Tamper', 'gender': 'Female'}
+{"results":{"gender":"Female","name":"Minna Susanna Claire Tamper","probabilities":{"Female":0.9999999999946162,"Male":5.383809595933431e-12}}}
 ```
 ### Http Interface
 
@@ -63,6 +63,6 @@ Post requests support parameters in the url, header, and from a form.
 Results are retuned in json format:
 
 ```
-{'name': 'Minna Susanna Claire Tamper', 'gender': 'Female'}
+{"results":{"gender":"Female","name":"Minna Susanna Claire Tamper","probabilities":{"Female":0.9999999999946162,"Male":5.383809595933431e-12}}}
 ```
 
