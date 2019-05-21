@@ -43,9 +43,9 @@ class SparqlQueries(object):
         """
         query = query.replace('$name', name)
         
-        print("name=", name)
-        print("endpoint= %s", endpoint)
-        print("query= %s", query)
+        #print("name=", name)
+        #print("endpoint= %s", endpoint)
+        #print("query= %s", query)
 
         sparql = SPARQLWrapper(endpoint)
         sparql.setQuery(query)

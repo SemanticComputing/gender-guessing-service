@@ -5,7 +5,7 @@ Created on 26 Apr 2019
 '''
 
 import re
-from sparqlQueries import SparqlQueries
+from src.sparqlQueries import SparqlQueries
 
 class GenderIdentifier(object):
     '''
@@ -18,7 +18,10 @@ class GenderIdentifier(object):
         Constructor
         '''
         print("Params", name, threshold)
-        self._probability_threshold = float(threshold)
+        if threshold == None:
+            self._probability_threshold = 0.8
+        else:
+            self._probability_threshold = float(threshold)
         self.females = dict()
         self.males = dict()
         self.other = dict()
@@ -78,12 +81,12 @@ class GenderIdentifier(object):
     '''
     def approx_gender(self, txt):
         
-        print("Input", txt)
+        #print("Input", txt)
         
-        if len(txt)<2: return None
-        if re.match(r'^[^A-ZÖÄÅ]+$',txt): return None
-        if re.match(r'.+?(poika|veli|kuningas|herttua|ruhtinas|isä|keisari|metropoliitta|piispa|prinssi)$', txt): return "Male"
-        if re.match(r'.+?(tytär|prinsessa|herttuatar|kuningatar|äiti|keisarinna|sisko|papitar)$', txt): return "Female"
+        if len(txt)<2: return "Unknown", {}
+        if re.match(r'^[^A-ZÖÄÅ]+$',txt): return "Unknown", {}
+        if re.match(r'.+?(poika|veli|kuningas|herttua|ruhtinas|isä|keisari|metropoliitta|piispa|prinssi)$', txt): return "Male", {"Female": 0, "Male":1}
+        if re.match(r'.+?(tytär|prinsessa|herttuatar|kuningatar|äiti|keisarinna|sisko|papitar)$', txt): return "Female", {"Female": 1, "Male":0}
                 
         probs = [0.5,0.5]
         for t in self.do_split(txt):
@@ -102,7 +105,7 @@ class GenderIdentifier(object):
         tot = probs[0]+probs[1]
         if tot==0:
             print("Unambiguous {}: {}/{}".format(txt, probs[0], probs[1]))
-            return None
+            return "Unknown", {}
         
         probs[0] /= tot
         probs[1] /= tot
