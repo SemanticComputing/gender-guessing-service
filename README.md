@@ -44,7 +44,7 @@ Results are retuned in json format:
 
 To run use flask as follows:
 
-1. export FLASK_APP=src/httpInterface.py
+1. export FLASK_APP=httpInterface.py
 2. flask run
 3. open browser and go to http://localhost:5000/ optionally there is the interface http://localhost:5000/quess/<name> that can be used with the threshold of 0.8.
 

@@ -19,7 +19,7 @@ It defines classes_and_methods
 
 import sys
 import os
-from genderIdentifier import GenderIdentifier
+from src.genderIdentifier import GenderIdentifier
 
 from argparse import ArgumentParser
 from argparse import RawDescriptionHelpFormatter
