@@ -1,4 +1,6 @@
+venv/*
 *.pydevproject
 *.project
 *.pyc
 .settings/*
+venv*
