@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ca127add-1364-4d74-8ccc-038d85843e24" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/src/run.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/httpInterface.py" beforeDir="false" afterPath="$PROJECT_DIR$/httpInterface.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/httpInterface.py" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -12,18 +14,6 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/httpInterface.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1069">
-              <caret line="95" column="272" selection-start-line="95" selection-start-column="272" selection-end-line="95" selection-end-column="272" />
-              <folding>
-                <element signature="e#20#53#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/genderIdentifier.py">
           <provider selected="true" editor-type-id="text-editor">
@@ -37,6 +27,15 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/httpInterface.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="635">
+              <caret line="95" column="220" selection-start-line="95" selection-start-column="220" selection-end-line="95" selection-end-column="220" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/run.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="605">
@@ -59,6 +58,7 @@
   <component name="FindInProjectRecents">
     <findStrings>
       <find>formatters</find>
+      <find>Using default threshold</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -69,8 +69,9 @@
       <list>
         <option value="$PROJECT_DIR$/src/genderIdentifier.py" />
         <option value="$PROJECT_DIR$/src/sparqlQueries.py" />
-        <option value="$PROJECT_DIR$/src/httpInterface.py" />
         <option value="$PROJECT_DIR$/run.py" />
+        <option value="$PROJECT_DIR$/src/httpInterface.py" />
+        <option value="$PROJECT_DIR$/httpInterface.py" />
       </list>
     </option>
   </component>
@@ -104,6 +105,11 @@
       </pane>
       <pane id="Scope" />
     </panes>
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/.." />
+    </key>
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -161,10 +167,17 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/run.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="605">
+          <caret line="21" column="9" selection-start-line="21" selection-start-column="9" selection-end-line="21" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/httpInterface.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1069">
-          <caret line="95" column="272" selection-start-line="95" selection-start-column="272" selection-end-line="95" selection-end-column="272" />
+        <state relative-caret-position="751">
+          <caret line="113" column="8" selection-start-line="113" selection-start-column="8" selection-end-line="114" selection-end-column="13" />
           <folding>
             <element signature="e#20#53#0" expanded="true" />
           </folding>
@@ -181,10 +194,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/run.py">
+    <entry file="file://$PROJECT_DIR$/httpInterface.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="605">
-          <caret line="21" column="9" selection-start-line="21" selection-start-column="9" selection-end-line="21" selection-end-column="9" />
+        <state relative-caret-position="635">
+          <caret line="95" column="220" selection-start-line="95" selection-start-column="220" selection-end-line="95" selection-end-column="220" />
         </state>
       </provider>
     </entry>

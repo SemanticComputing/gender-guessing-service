@@ -103,10 +103,10 @@ def api_message():
     return "Something went wrong..."
         
 @app.route('/guess/<name>')
-def quess_gender_using_default_threshold(name):
+def guess_gender_using_default_threshold(name):
     threshold = 0.8
     print("Using default threshold:", threshold)
-    return quess(threshold=threshold, name=name)
+    return jsonify(results=quess(threshold=threshold, name=name))
     
 def quess(threshold, name):
     json_response = dict()
