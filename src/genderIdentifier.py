@@ -29,7 +29,7 @@ class GenderIdentifier(object):
         self._probabilities = dict()
                 
         self._name = name
-        if len(name) > 0:
+        if name != None:
             self._gender, self._probabilities = self.identify_gender(name)
         else:
             self.gender = None   
