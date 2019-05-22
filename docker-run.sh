@@ -24,7 +24,7 @@ done
 # Variables
 IMAGE="gender-guessing-service"
 CONTAINER_NAME="$IMAGE"
-IP="172.30.20.65"
+IP="172.30.20.79"
 CONTAINER_PORTS[1]="5000"
 HOST_PORTS[1]="5000"
 NETWORK="seco"

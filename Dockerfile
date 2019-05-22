@@ -14,6 +14,7 @@ RUN pip3 install gunicorn
 WORKDIR /app
 
 COPY src ./src
+COPY httpInterface.py ./
 
 RUN chgrp -R 0 /app \
  && chmod -R g+rwX /app
