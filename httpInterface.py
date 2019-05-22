@@ -78,8 +78,8 @@ def api_message():
                 if name != None and threshold != None:
                     return jsonify(results=quess(threshold=threshold, name=name))
             elif 'Name' in request.headers and 'Threshold' in request.headers:
-                threshold = request.headers['Threshold']
-                name = request.headers['name']
+                threshold = float(request.headers['Threshold'])
+                name = request.headers['Name']
                 if name != None and threshold != None:
                     return jsonify(results=quess(threshold=threshold, name=name))
             
