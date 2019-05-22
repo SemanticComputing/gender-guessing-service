@@ -38,6 +38,8 @@ def before_request():
 def api_message():
     content_dict = None
     declaration = None
+    name = ""
+    threshold = 0.0
 
     print("HEADERS",request.headers)
     #print("Type:",request.headers['Content-Type'])
