@@ -82,10 +82,11 @@ def api_message():
                 name = request.headers['Name']
                 if name != None and threshold != None:
                     return jsonify(results=quess(threshold=threshold, name=name))
-            
-            return "<strong>Unable to process the request: missing name or threshold.</strong> \n"+\
-                   "<p>Please give parameters using GET or POST method. GET method example: <a href='http://127.0.0.1:5000/?name=Minna Susanna Claire Tamper&threshold=0.8' target='_blank'>http://127.0.0.1:5000/?name=Minna Susanna Claire Tamper&threshold=0.8</a></p>"+\
+            message = "Unable to process the request: missing name or threshold: name=%s, threshold=%s" % (str(name), str(threshold))
+            message +=  "<p>Please give parameters using GET or POST method. GET method example: <a href='http://127.0.0.1:5000/?name=Minna Susanna Claire Tamper&threshold=0.8' target='_blank'>http://127.0.0.1:5000/?name=Minna Susanna Claire Tamper&threshold=0.8</a></p>"+\
                     "POST method can be used by transmitting the parameters using url, header, or a form."
+            return message
+
     elif request.method == "GET":
         threshold = request.args.get('threshold')
         name = request.args.get('name')
