@@ -94,9 +94,10 @@ def api_message():
                     print("Parse from ARGS")
                     threshold = request.args.get('threshold')
                     name = request.args.get('name')
-                    if name == None:
-                        print("Gets wrong value:", request.args.get('name'), request.args)
+                    if 'name' in request.values:
                         name = request.values['name']
+                    else:
+                        app.logger.error("Cannot get value: %s ", request.values)
                     if name != None and threshold != None:
                         return jsonify(results=quess(threshold=threshold, name=name))
                 elif 'Name' in request.headers and 'Threshold' in request.headers:
@@ -121,8 +122,11 @@ def api_message():
             threshold = request.args.get('threshold')
             name = request.args.get('name')
             if name == None:
-                print("Gets wrong value:", request.args.get('name'), request.args)
-                name = request.values['name']
+                app.logger.error("Gets wrong value: %s %s", request.args.get('name'), request.args)
+                if 'name' in request.values:
+                    name = request.values['name']
+                else:
+                    app.logger.error("Cannot get value: %s ", request.values)
             if name != None and threshold != None:
                 return jsonify(results=quess(threshold=threshold, name=name))
             else:
