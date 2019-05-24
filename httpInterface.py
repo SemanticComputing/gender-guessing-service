@@ -128,6 +128,7 @@ def api_message():
                 else:
                     app.logger.error("Cannot get value: %s ", request.values)
             if name != None and threshold != None:
+                app.logger.info("Gets value: %s %s", name, threshold)
                 return jsonify(results=quess(threshold=threshold, name=name))
             else:
 
@@ -157,12 +158,15 @@ def guess_gender_using_default_threshold(name):
     return jsonify(results=quess(threshold=threshold, name=name))
     
 def quess(threshold, name):
-    json_response = dict()
-    genId = GenderIdentifier(name=name, threshold=threshold)
-    json_response['name']= genId.get_name()
-    json_response['gender']= genId.get_gender()
-    json_response['probabilities']= genId.get_gender_probabilities()
-    return json_response
+    try:
+        json_response = dict()
+        genId = GenderIdentifier(name=name, threshold=threshold)
+        json_response['name']= genId.get_name()
+        json_response['gender']= genId.get_gender()
+        json_response['probabilities']= genId.get_gender_probabilities()
+        return json_response
+    except Exception as e:
+        app.logger.error('Something went wrong %s', str(e))
 
 def shutdown_server():
     func = request.environ.get('werkzeug.server.shutdown')
