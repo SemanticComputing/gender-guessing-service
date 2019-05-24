@@ -151,7 +151,7 @@ def shutdown():
     shutdown_server()
     return 'Server shutting down...'
 
-if __name__ == '__main__':
-    p = 5002
-    h = '0.0.0.0'
-    app.run(host=h, port=int(p), debug=True, threaded=True)
+#if __name__ == '__main__':
+#    p = 5002
+#    h = '0.0.0.0'
+#    app.run(host=h, port=int(p), debug=True, threaded=True)
