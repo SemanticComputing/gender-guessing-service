@@ -11,6 +11,7 @@ import traceback
 from src.genderIdentifier import GenderIdentifier
 import traceback
 import logging
+from datetime import datetime
 
 app = Flask(__name__)
 cors = CORS(app)
@@ -52,6 +53,9 @@ def api_message():
     declaration = None
     name = ""
     threshold = 0.0
+    result = dict()
+    result['service'] = "Gender guessing service"
+    result['date'] = datetime.today().strftime('%Y-%m-%d')
 
     print("HEADERS:", request.headers)
     print("METHODS:", request.method)
@@ -73,13 +77,13 @@ def api_message():
                     threshold = 0
                     name = None
 
-                    return jsonify(results=quess(threshold=threshold, name=name))
+                    result['results'] = quess(threshold=threshold, name=name)
 
                 elif request.headers['Content-type'] == "application/octet-stream":
                     threshold = 0
                     name = None
 
-                    return jsonify(results=quess(threshold=threshold, name=name))
+                    result['results'] = quess(threshold=threshold, name=name)
                 else:
                     print("Bad type", request.headers['Content-Type'])
                     return "415 Unsupported Media Type ;)"
@@ -89,7 +93,7 @@ def api_message():
                     print("Parse from ARGS")
                     name = request.form['name']
                     threshold = request.form['threshold']
-                    return jsonify(results=quess(threshold=threshold, name=name))
+                    result['results'] = quess(threshold=threshold, name=name)
                 elif 'name' in request.args and 'threshold' in request.args:
                     print("Parse from ARGS")
                     threshold = request.args.get('threshold')
@@ -99,13 +103,13 @@ def api_message():
                     else:
                         app.logger.error("Cannot get value: %s ", request.values)
                     if name != None and threshold != None:
-                        return jsonify(results=quess(threshold=threshold, name=name))
+                        result['results'] = quess(threshold=threshold, name=name)
                 elif 'Name' in request.headers and 'Threshold' in request.headers:
                     print("Parse from ARGS")
                     threshold = float(request.headers['Threshold'])
                     name = request.headers['Name']
                     if name != None and threshold != None:
-                        return jsonify(results=quess(threshold=threshold, name=name))
+                        result['results'] = quess(threshold=threshold, name=name)
                 else:
                     print("Unable to find parameters.")
                     print("Form:", request.form)
@@ -129,7 +133,7 @@ def api_message():
                     app.logger.error("Cannot get value: %s ", request.values)
             if name != None and threshold != None:
                 app.logger.info("Gets value: %s %s", name, threshold)
-                return jsonify(results=quess(threshold=threshold, name=name))
+                result['results'] = quess(threshold=threshold, name=name)
             else:
 
                 message = "Parameters could not be identified: name=%s, threshold=%s" % (str(name), str(threshold))
@@ -145,17 +149,19 @@ def api_message():
     except Exception as e:
         print("Error happened during execution", e)
         traceback.print_exc()
-        returning = {'results':str(e), "status":500, 'message':"Error happened during execution", 'params':request.values}
-        app.logger.error('this is an ERROR message %s', returning)
-        return returning
+        result['results'] = {'error':str(e), "status":500, 'message':"Error happened during execution", 'params':request.values}
+        app.logger.error('this is an ERROR message %s', result['results'])
 
-    return "Something went wrong..."
+    return jsonify(result)
         
 @app.route('/guess/<name>')
 def guess_gender_using_default_threshold(name):
+    result = dict()
+    result['service'] = "Gender guessing service"
+    result['date'] = datetime.today().strftime('%Y-%m-%d')
     threshold = 0.8
     print("Using default threshold:", threshold)
-    return jsonify(results=quess(threshold=threshold, name=name))
+    result['results'] = jsonify(results=quess(threshold=threshold, name=name))
     
 def quess(threshold, name):
     try:
