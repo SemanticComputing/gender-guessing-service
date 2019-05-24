@@ -27,8 +27,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/httpInterface.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="5133">
-              <caret line="186" column="48" selection-start-line="186" selection-start-column="48" selection-end-line="186" selection-end-column="48" />
+            <state relative-caret-position="1234">
+              <caret line="181" column="19" selection-start-line="181" selection-start-column="19" selection-end-line="181" selection-end-column="19" />
               <folding>
                 <element signature="e#20#62#0" expanded="true" />
               </folding>
@@ -190,8 +190,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/httpInterface.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="5133">
-          <caret line="186" column="48" selection-start-line="186" selection-start-column="48" selection-end-line="186" selection-end-column="48" />
+        <state relative-caret-position="1234">
+          <caret line="181" column="19" selection-start-line="181" selection-start-column="19" selection-end-line="181" selection-end-column="19" />
           <folding>
             <element signature="e#20#62#0" expanded="true" />
           </folding>
