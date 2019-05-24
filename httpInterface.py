@@ -32,6 +32,7 @@ def before_request():
         print("ARGS, %s",request.args)
         print("DATA, %s",request.data)
         print("FORM, %s",request.form)
+        print("VALUES, %s", request.values)
         
 @app.route('/', methods = ['POST', 'GET', 'OPTIONS'])
 @cross_origin()
@@ -41,8 +42,8 @@ def api_message():
     name = ""
     threshold = 0.0
 
-    print("HEADERS",request.headers)
-    print("METHODS:",request.method)
+    print("HEADERS:", request.headers)
+    print("METHODS:", request.method)
     
     if request.method == "POST":
         print("Data (form):", request.form)
