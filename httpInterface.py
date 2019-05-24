@@ -38,12 +38,6 @@ def before_request():
         print("FORM, %s",request.form)
         print("VALUES, %s", request.values)
 
-    app.logger.debug('this is an INFO message')
-    app.logger.info('this is an INFO message')
-    app.logger.warning('this is a WARNING message')
-    app.logger.error('this is an ERROR message')
-    app.logger.critical('this is a CRITICAL message')
-
     app.logger.info("LOG HEADERS, %s", request.headers)
     app.logger.info("LOG REQ_path, %s", request.path)
     app.logger.info("LOG ARGS, %s",request.args)
@@ -181,8 +175,14 @@ if __name__ != '__main__':
     gunicorn_logger = logging.getLogger('gunicorn.error')
     app.logger.handlers = gunicorn_logger.handlers
     app.logger.setLevel(gunicorn_logger.level)
+    app.logger.error('this is an TEST message')
 
 if __name__ == '__main__':
-#    p = 5002
-#    h = '0.0.0.0'
+    #    p = 5002
+    #    h = '0.0.0.0'
+    app.logger.debug('this is an DEBUG message')
+    app.logger.info('this is an INFO message')
+    app.logger.warning('this is a WARNING message')
+    app.logger.error('this is an ERROR message')
+    app.logger.critical('this is a CRITICAL message')
     app.run(debug=True)
