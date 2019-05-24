@@ -180,13 +180,14 @@ if __name__ != '__main__':
     app.logger.handlers = gunicorn_logger.handlers
     app.logger.setLevel(gunicorn_logger.level)
     app.logger.error('this is an TEST message')
+    app.run(debug=True)
 
-if __name__ == '__main__':
+#if __name__ == '__main__':
     #    p = 5002
     #    h = '0.0.0.0'
-    app.logger.debug('this is an DEBUG message')
-    app.logger.info('this is an INFO message')
-    app.logger.warning('this is a WARNING message')
-    app.logger.error('this is an ERROR message')
-    app.logger.critical('this is a CRITICAL message')
-    app.run(debug=True)
+#    app.logger.debug('this is an DEBUG message')
+#    app.logger.info('this is an INFO message')
+#    app.logger.warning('this is a WARNING message')
+#    app.logger.error('this is an ERROR message')
+#    app.logger.critical('this is a CRITICAL message')
+#    app.run(debug=True)
