@@ -9,7 +9,7 @@ import urllib
 
 import traceback
 from src.genderIdentifier import GenderIdentifier
-
+import traceback
 
 app = Flask(__name__)
 cors = CORS(app)
@@ -44,80 +44,86 @@ def api_message():
 
     print("HEADERS:", request.headers)
     print("METHODS:", request.method)
+
+    try:
     
-    if request.method == "POST":
-        print("Data (form):", request.form)
-        print("Data (data):", request.data)
-        if len(request.data) > 0 and len(request.headers['Content-Type'])>0:
-            if request.headers['Content-Type'] == 'text/plain':
-                #try:
-                #    doc.parse_text(urllib.parse.unquote(str(request.data,'utf-8')))
-                #except Exception as err:
-                #    print(err)
-                #    print(traceback.format_exc())
-                threshold = 0
-                name = None
-        
-                return jsonify(results=quess(threshold=threshold, name=name))
-            
-            elif request.headers['Content-type'] == "application/octet-stream":
-                threshold = 0
-                name = None
-    
+        if request.method == "POST":
+            print("Data (form):", request.form)
+            print("Data (data):", request.data)
+            if len(request.data) > 0 and len(request.headers['Content-Type'])>0:
+                if request.headers['Content-Type'] == 'text/plain':
+                    #try:
+                    #    doc.parse_text(urllib.parse.unquote(str(request.data,'utf-8')))
+                    #except Exception as err:
+                    #    print(err)
+                    #    print(traceback.format_exc())
+                    threshold = 0
+                    name = None
+
+                    return jsonify(results=quess(threshold=threshold, name=name))
+
+                elif request.headers['Content-type'] == "application/octet-stream":
+                    threshold = 0
+                    name = None
+
+                    return jsonify(results=quess(threshold=threshold, name=name))
+                else:
+                    print("Bad type", request.headers['Content-Type'])
+                    return "415 Unsupported Media Type ;)"
+
+            else:
+                if 'name' in request.form and 'threshold' in request.form:
+                    print("Parse from ARGS")
+                    name = request.form['name']
+                    threshold = request.form['threshold']
+                    return jsonify(results=quess(threshold=threshold, name=name))
+                elif 'name' in request.args and 'threshold' in request.args:
+                    print("Parse from ARGS")
+                    threshold = request.args.get('threshold')
+                    name = request.args.get('name')
+                    if name == None:
+                        print("Gets wrong value:", request.args.get('name'), request.args)
+                        name = request.values['name']
+                    if name != None and threshold != None:
+                        return jsonify(results=quess(threshold=threshold, name=name))
+                elif 'Name' in request.headers and 'Threshold' in request.headers:
+                    print("Parse from ARGS")
+                    threshold = float(request.headers['Threshold'])
+                    name = request.headers['Name']
+                    if name != None and threshold != None:
+                        return jsonify(results=quess(threshold=threshold, name=name))
+                else:
+                    print("Unable to find parameters.")
+                    print("Form:", request.form)
+                    print("Args:", request.args)
+                    print("Head:", request.headers)
+                message = "Unable to process the request: missing name or threshold: name=%s, threshold=%s" % (str(name), str(threshold))
+                message +=  "<p>Please give parameters using GET or POST method. GET method example: <a href='http://127.0.0.1:5000/?name=Minna Susanna Claire Tamper&threshold=0.8' target='_blank'>http://127.0.0.1:5000/?name=Minna Susanna Claire Tamper&threshold=0.8</a></p>"+\
+                        "POST method can be used by transmitting the parameters using url, header, or a form."
+                return message
+
+        elif request.method == "GET":
+            print("Parse from ARGS")
+            threshold = request.args.get('threshold')
+            name = request.args.get('name')
+            if name == None:
+                print("Gets wrong value:", request.args.get('name'), request.args)
+                name = request.values['name']
+            if name != None and threshold != None:
                 return jsonify(results=quess(threshold=threshold, name=name))
             else:
-                print("Bad type", request.headers['Content-Type'])
-                return "415 Unsupported Media Type ;)"
-
+                message = "Parameters could not be identified: name=%s, threshold=%s" % (str(name), str(threshold))
+                message += "<p>Please give parameters using GET or POST method. GET method example: <a href='http://127.0.0.1:5000/?name=Minna Susanna Claire Tamper&threshold=0.8' target='_blank'>http://127.0.0.1:5000/?name=Minna Susanna Claire Tamper&threshold=0.8</a></p>"+\
+                        "POST method can be used by transmitting the parameters using url, header, or a form."
+                return message
         else:
-            if 'name' in request.form and 'threshold' in request.form:
-                print("Parse from ARGS")
-                name = request.form['name']
-                threshold = request.form['threshold']
-                return jsonify(results=quess(threshold=threshold, name=name))
-            elif 'name' in request.args and 'threshold' in request.args:
-                print("Parse from ARGS")
-                threshold = request.args.get('threshold')
-                name = request.args.get('name')
-                if name == None:
-                    print("Gets wrong value:", request.args.get('name'), request.args)
-                    name = request.values['name']
-                if name != None and threshold != None:
-                    return jsonify(results=quess(threshold=threshold, name=name))
-            elif 'Name' in request.headers and 'Threshold' in request.headers:
-                print("Parse from ARGS")
-                threshold = float(request.headers['Threshold'])
-                name = request.headers['Name']
-                if name != None and threshold != None:
-                    return jsonify(results=quess(threshold=threshold, name=name))
-            else:
-                print("Unable to find parameters.")
-                print("Form:", request.form)
-                print("Args:", request.args)
-                print("Head:", request.headers)
-            message = "Unable to process the request: missing name or threshold: name=%s, threshold=%s" % (str(name), str(threshold))
-            message +=  "<p>Please give parameters using GET or POST method. GET method example: <a href='http://127.0.0.1:5000/?name=Minna Susanna Claire Tamper&threshold=0.8' target='_blank'>http://127.0.0.1:5000/?name=Minna Susanna Claire Tamper&threshold=0.8</a></p>"+\
-                    "POST method can be used by transmitting the parameters using url, header, or a form."
-            return message
+            print("Other request method:", request.method)
+            print("This method is not yet supported")
+    except Exception as e:
+        print("Error happened during execution", e)
+        traceback.print_exc()
+        return {'results':str(e), "status":500, 'message':"Error happened during execution", 'params':request.values}
 
-    elif request.method == "GET":
-        print("Parse from ARGS")
-        threshold = request.args.get('threshold')
-        name = request.args.get('name')
-        if name == None:
-            print("Gets wrong value:", request.args.get('name'), request.args)
-            name = request.values['name']
-        if name != None and threshold != None:
-            return jsonify(results=quess(threshold=threshold, name=name))
-        else:
-            message = "Parameters could not be identified: name=%s, threshold=%s" % (str(name), str(threshold))
-            message += "<p>Please give parameters using GET or POST method. GET method example: <a href='http://127.0.0.1:5000/?name=Minna Susanna Claire Tamper&threshold=0.8' target='_blank'>http://127.0.0.1:5000/?name=Minna Susanna Claire Tamper&threshold=0.8</a></p>"+\
-                    "POST method can be used by transmitting the parameters using url, header, or a form."
-            return message
-    else:
-        print("Other request method:", request.method)
-        print("This method is not yet supported")
-        
     return "Something went wrong..."
         
 @app.route('/guess/<name>')
