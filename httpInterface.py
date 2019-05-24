@@ -42,8 +42,7 @@ def api_message():
     threshold = 0.0
 
     print("HEADERS",request.headers)
-    #print("Type:",request.headers['Content-Type'])
-    print("Method:",request.method)
+    print("METHODS:",request.method)
     
     if request.method == "POST":
         print("Data (form):", request.form)
@@ -71,15 +70,21 @@ def api_message():
 
         else:
             if 'name' in request.form and 'threshold' in request.form:
+                print("Parse from ARGS")
                 name = request.form['name']
                 threshold = request.form['threshold']
                 return jsonify(results=quess(threshold=threshold, name=name))
             elif 'name' in request.args and 'threshold' in request.args:
+                print("Parse from ARGS")
                 threshold = request.args.get('threshold')
                 name = request.args.get('name')
+                if name == None:
+                    print("Gets wrong value:", request.args.get('name'), request.args)
+                    name = request.values['name']
                 if name != None and threshold != None:
                     return jsonify(results=quess(threshold=threshold, name=name))
             elif 'Name' in request.headers and 'Threshold' in request.headers:
+                print("Parse from ARGS")
                 threshold = float(request.headers['Threshold'])
                 name = request.headers['Name']
                 if name != None and threshold != None:
@@ -95,8 +100,12 @@ def api_message():
             return message
 
     elif request.method == "GET":
+        print("Parse from ARGS")
         threshold = request.args.get('threshold')
         name = request.args.get('name')
+        if name == None:
+            print("Gets wrong value:", request.args.get('name'), request.args)
+            name = request.values['name']
         if name != None and threshold != None:
             return jsonify(results=quess(threshold=threshold, name=name))
         else:
