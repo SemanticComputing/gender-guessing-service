@@ -43,6 +43,13 @@ def before_request():
     app.logger.warning('this is a WARNING message')
     app.logger.error('this is an ERROR message')
     app.logger.critical('this is a CRITICAL message')
+
+    app.logger.info("LOG HEADERS, %s", request.headers)
+    app.logger.info("LOG REQ_path, %s", request.path)
+    app.logger.info("LOG ARGS, %s",request.args)
+    app.logger.info("LOG DATA, %s",request.data)
+    app.logger.info("LOG FORM, %s",request.form)
+
         
 @app.route('/', methods = ['POST', 'GET', 'OPTIONS'])
 @cross_origin()
@@ -54,6 +61,8 @@ def api_message():
 
     print("HEADERS:", request.headers)
     print("METHODS:", request.method)
+    app.logger.info('METHODS: %s', request.method)
+    app.logger.info('HEADERS: %s', request.headers)
 
     try:
     
@@ -110,6 +119,7 @@ def api_message():
                 message = "Unable to process the request: missing name or threshold: name=%s, threshold=%s" % (str(name), str(threshold))
                 message +=  "<p>Please give parameters using GET or POST method. GET method example: <a href='http://127.0.0.1:5000/?name=Minna Susanna Claire Tamper&threshold=0.8' target='_blank'>http://127.0.0.1:5000/?name=Minna Susanna Claire Tamper&threshold=0.8</a></p>"+\
                         "POST method can be used by transmitting the parameters using url, header, or a form."
+                app.logger.error('this is an ERROR message: %s', message)
                 return message
 
         elif request.method == "GET":
@@ -122,11 +132,15 @@ def api_message():
             if name != None and threshold != None:
                 return jsonify(results=quess(threshold=threshold, name=name))
             else:
+
                 message = "Parameters could not be identified: name=%s, threshold=%s" % (str(name), str(threshold))
                 message += "<p>Please give parameters using GET or POST method. GET method example: <a href='http://127.0.0.1:5000/?name=Minna Susanna Claire Tamper&threshold=0.8' target='_blank'>http://127.0.0.1:5000/?name=Minna Susanna Claire Tamper&threshold=0.8</a></p>"+\
                         "POST method can be used by transmitting the parameters using url, header, or a form."
+                app.logger.error('this is an ERROR message: %s', message)
                 return message
         else:
+            app.logger.error("Other request method: %s", request.method)
+            app.logger.error('This method is not yet supported')
             print("Other request method:", request.method)
             print("This method is not yet supported")
     except Exception as e:
