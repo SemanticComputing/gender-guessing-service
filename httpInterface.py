@@ -166,6 +166,7 @@ def quess(threshold, name):
         json_response['probabilities']= genId.get_gender_probabilities()
         return json_response
     except Exception as e:
+        app.logger.error('Error happened!')
         app.logger.error('Something went wrong %s', str(e))
 
 def shutdown_server():
