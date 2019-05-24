@@ -180,7 +180,7 @@ if __name__ != '__main__':
     app.logger.handlers = gunicorn_logger.handlers
     app.logger.setLevel(gunicorn_logger.level)
     app.logger.error('this is an TEST message')
-    app.run()
+    #app.run()
 
 #if __name__ == '__main__':
     #    p = 5002
