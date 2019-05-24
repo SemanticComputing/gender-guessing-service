@@ -163,7 +163,12 @@ def shutdown():
     shutdown_server()
     return 'Server shutting down...'
 
-#if __name__ == '__main__':
+if __name__ != '__main__':
+    gunicorn_logger = logging.getLogger('gunicorn.error')
+    app.logger.handlers = gunicorn_logger.handlers
+    app.logger.setLevel(gunicorn_logger.level)
+
+if __name__ == '__main__':
 #    p = 5002
 #    h = '0.0.0.0'
-#    app.run(host=h, port=int(p), debug=True, threaded=True)
+    app.run(debug=True)
