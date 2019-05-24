@@ -10,6 +10,7 @@ import urllib
 import traceback
 from src.genderIdentifier import GenderIdentifier
 import traceback
+import logging
 
 app = Flask(__name__)
 cors = CORS(app)
@@ -24,6 +25,9 @@ file_id = 0
 
 from flask import json
 
+gunicorn_logger = logging.getLogger('gunicorn.error')
+app.logger.handlers = gunicorn_logger.handlers
+
 @app.before_request
 def before_request():
     if True:
@@ -33,6 +37,12 @@ def before_request():
         print("DATA, %s",request.data)
         print("FORM, %s",request.form)
         print("VALUES, %s", request.values)
+
+    app.logger.debug('this is an INFO message')
+    app.logger.info('this is an INFO message')
+    app.logger.warning('this is a WARNING message')
+    app.logger.error('this is an ERROR message')
+    app.logger.critical('this is a CRITICAL message')
         
 @app.route('/', methods = ['POST', 'GET', 'OPTIONS'])
 @cross_origin()
@@ -122,7 +132,9 @@ def api_message():
     except Exception as e:
         print("Error happened during execution", e)
         traceback.print_exc()
-        return {'results':str(e), "status":500, 'message':"Error happened during execution", 'params':request.values}
+        returning = {'results':str(e), "status":500, 'message':"Error happened during execution", 'params':request.values}
+        app.logger.error('this is an ERROR message %s', returning)
+        return returning
 
     return "Something went wrong..."
         
