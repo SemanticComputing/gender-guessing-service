@@ -2,12 +2,7 @@
 from flask import Flask, Response, jsonify
 from flask import request
 
-import logging.config
 from flask_cors import CORS, cross_origin
-
-import urllib
-
-import traceback
 from src.genderIdentifier import GenderIdentifier
 import traceback
 import logging
@@ -63,17 +58,12 @@ def api_message():
     app.logger.info('HEADERS: %s', request.headers)
 
     try:
-    
         if request.method == "POST":
             print("Data (form):", request.form)
             print("Data (data):", request.data)
             if len(request.data) > 0 and len(request.headers['Content-Type'])>0:
                 if request.headers['Content-Type'] == 'text/plain':
-                    #try:
-                    #    doc.parse_text(urllib.parse.unquote(str(request.data,'utf-8')))
-                    #except Exception as err:
-                    #    print(err)
-                    #    print(traceback.format_exc())
+
                     threshold = 0
                     name = None
 
@@ -191,14 +181,3 @@ if __name__ != '__main__':
     app.logger.handlers = gunicorn_logger.handlers
     app.logger.setLevel(gunicorn_logger.level)
     app.logger.info('this is an TEST message')
-    #app.run()
-
-#if __name__ == '__main__':
-    #    p = 5002
-    #    h = '0.0.0.0'
-#    app.logger.debug('this is an DEBUG message')
-#    app.logger.info('this is an INFO message')
-#    app.logger.warning('this is a WARNING message')
-#    app.logger.error('this is an ERROR message')
-#    app.logger.critical('this is a CRITICAL message')
-#    app.run(debug=True)
