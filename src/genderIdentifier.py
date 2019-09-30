@@ -67,6 +67,8 @@ class GenderIdentifier(object):
         self.females = females
         self.males = males
         self.other = familyname
+
+        print(self.males, self.females, self.other)
         
         return self.approx_gender(name)
         

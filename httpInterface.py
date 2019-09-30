@@ -146,12 +146,14 @@ def api_message():
         
 @app.route('/guess/<name>')
 def guess_gender_using_default_threshold(name):
+    print("Got:", name)
     result = dict()
     result['service'] = "Gender guessing service"
     result['date'] = datetime.today().strftime('%Y-%m-%d')
     threshold = 0.8
     print("Using default threshold:", threshold)
-    result['results'] = jsonify(results=quess(threshold=threshold, name=name))
+    result['results'] = quess(threshold=threshold, name=name)
+    return jsonify(result)
     
 def quess(threshold, name):
     try:

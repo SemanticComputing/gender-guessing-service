@@ -85,12 +85,12 @@ class SparqlQueries(object):
                     print("label:", label)
                     print("type:", type)
                     
-                    if type == "Etunimen käyttö" and len(gender)>0:
+                    if type == "Etunimi" and len(gender)>0:
                         if gender == "Female":
                             females[name] = count
                         else:
                             males[name] = count
-                    elif type == "Sukunimen käyttö" and len(gender) == 0:
+                    elif type == "Sukunimi" and len(gender) == 0:
                         if name == names[-1]:
                             other[name] = count
                     else:
