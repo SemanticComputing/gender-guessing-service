@@ -24,22 +24,23 @@ class SparqlQueries(object):
         PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
         PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
         PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-        SELECT ?label ?gender ?count ?type WHERE {
+        SELECT ?label ?gender (sum(?lkm)as ?count) ?type WHERE {
           VALUES ?ngram {
             "$name"
           }
           BIND(STRLANG(?ngram,"fi") AS ?label)
           ?name a <http://ldf.fi/schema/henkilonimisto/Name> .
           ?name skos:prefLabel ?label .
-          ?name <http://ldf.fi/schema/henkilonimisto/usedAs> ?used .
-          ?used <http://ldf.fi/schema/henkilonimisto/count> ?count .
+          ?nameUsage <http://ldf.fi/schema/henkilonimisto/hasName> ?name .
+          ?nameUsage <http://ldf.fi/schema/henkilonimisto/count> ?lkm .
+          ?used <http://ldf.fi/schema/henkilonimisto/isUsed> ?nameUsage .
           ?used a ?typed .
           ?typed skos:prefLabel ?type .
           OPTIONAL {?used <http://ldf.fi/schema/henkilonimisto/gender> ?gender .
               #BIND(REPLACE(?genderUri, "http:\/\/schema.org\/", "", "i") AS ?gender)
           }
           FILTER(lang(?type) = 'fi')
-        } 
+        } GROUP BY ?label ?gender ?type
         """
         query = query.replace('$name', name)
         

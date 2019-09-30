@@ -3,7 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="ca127add-1364-4d74-8ccc-038d85843e24" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/httpInterface.py" beforeDir="false" afterPath="$PROJECT_DIR$/httpInterface.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sparqlQueries.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/sparqlQueries.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -16,8 +16,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/genderIdentifier.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="174">
-              <caret line="7" column="43" selection-start-line="7" selection-start-column="43" selection-end-line="7" selection-end-column="43" />
+            <state relative-caret-position="1827">
+              <caret line="64" column="48" selection-start-line="64" selection-start-column="48" selection-end-line="64" selection-end-column="48" />
               <folding>
                 <element signature="e#51#60#0" expanded="true" />
               </folding>
@@ -25,11 +25,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/httpInterface.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1565">
-              <caret line="183" lean-forward="true" selection-start-line="183" selection-end-line="183" />
+            <state relative-caret-position="29">
+              <caret line="8" column="29" selection-start-line="1" selection-end-line="9" />
               <folding>
                 <element signature="e#20#62#0" expanded="true" />
               </folding>
@@ -40,17 +40,17 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/run.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="609">
-              <caret line="21" column="9" selection-start-line="21" selection-start-column="9" selection-end-line="21" selection-end-column="9" />
+            <state relative-caret-position="696">
+              <caret line="24" column="40" selection-start-line="24" selection-start-column="40" selection-end-line="24" selection-end-column="40" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/sparqlQueries.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="145">
-              <caret line="7" column="9" selection-start-line="7" selection-start-column="9" selection-end-line="7" selection-end-column="9" />
+            <state relative-caret-position="1216">
+              <caret line="42" column="39" selection-start-line="42" selection-start-column="39" selection-end-line="42" selection-end-column="39" />
               <folding>
                 <element signature="e#50#102#0" expanded="true" />
               </folding>
@@ -66,6 +66,8 @@
       <find>Using default threshold</find>
       <find>DATA</find>
       <find>app.run</find>
+      <find>query</find>
+      <find>q</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -74,19 +76,19 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/sparqlQueries.py" />
         <option value="$PROJECT_DIR$/run.py" />
         <option value="$PROJECT_DIR$/src/httpInterface.py" />
         <option value="$PROJECT_DIR$/src/genderIdentifier.py" />
         <option value="$PROJECT_DIR$/httpInterface.py" />
+        <option value="$PROJECT_DIR$/src/sparqlQueries.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="645" />
-    <option name="y" value="279" />
-    <option name="width" value="1851" />
-    <option name="height" value="984" />
+    <option name="x" value="65" />
+    <option name="y" value="24" />
+    <option name="width" value="1855" />
+    <option name="height" value="1056" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -147,7 +149,7 @@
     <frame x="130" y="-8" width="3710" height="2168" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24931806" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2405892" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -170,37 +172,37 @@
     <entry file="file://$PROJECT_DIR$/src/httpInterface.py" />
     <entry file="file://$PROJECT_DIR$/src/genderIdentifier.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="174">
-          <caret line="7" column="43" selection-start-line="7" selection-start-column="43" selection-end-line="7" selection-end-column="43" />
+        <state relative-caret-position="1827">
+          <caret line="64" column="48" selection-start-line="64" selection-start-column="48" selection-end-line="64" selection-end-column="48" />
           <folding>
             <element signature="e#51#60#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/httpInterface.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="29">
+          <caret line="8" column="29" selection-start-line="1" selection-end-line="9" />
+          <folding>
+            <element signature="e#20#62#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/run.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="609">
-          <caret line="21" column="9" selection-start-line="21" selection-start-column="9" selection-end-line="21" selection-end-column="9" />
+        <state relative-caret-position="696">
+          <caret line="24" column="40" selection-start-line="24" selection-start-column="40" selection-end-line="24" selection-end-column="40" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/sparqlQueries.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="145">
-          <caret line="7" column="9" selection-start-line="7" selection-start-column="9" selection-end-line="7" selection-end-column="9" />
+        <state relative-caret-position="1216">
+          <caret line="42" column="39" selection-start-line="42" selection-start-column="39" selection-end-line="42" selection-end-column="39" />
           <folding>
             <element signature="e#50#102#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/httpInterface.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1565">
-          <caret line="183" lean-forward="true" selection-start-line="183" selection-end-line="183" />
-          <folding>
-            <element signature="e#20#62#0" expanded="true" />
           </folding>
         </state>
       </provider>
