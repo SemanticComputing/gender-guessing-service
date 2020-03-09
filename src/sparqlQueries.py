@@ -36,8 +36,7 @@ class SparqlQueries(object):
           ?used <http://ldf.fi/schema/henkilonimisto/isUsed> ?nameUsage .
           ?used a ?typed .
           ?typed skos:prefLabel ?type .
-          OPTIONAL {?used <http://ldf.fi/schema/henkilonimisto/gender> ?gender .
-              #BIND(REPLACE(?genderUri, "http:\/\/schema.org\/", "", "i") AS ?gender)
+          OPTIONAL {?nameUsage <http://ldf.fi/schema/henkilonimisto/gender> ?gender .
           }
           FILTER(lang(?type) = 'fi')
         } GROUP BY ?label ?gender ?type
