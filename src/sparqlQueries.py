@@ -19,7 +19,7 @@ class SparqlQueries(object):
         '''
         
     def query_names(self, name):
-        endpoint = "http://ldf.fi/henkilonimisto/sparql"
+        endpoint = "http://ldf.fi/henko/sparql"
         query = """
         PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
         PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
@@ -29,14 +29,14 @@ class SparqlQueries(object):
             "$name"
           }
           BIND(STRLANG(?ngram,"fi") AS ?label)
-          ?name a <http://ldf.fi/schema/henkilonimisto/Name> .
+          ?name a <http://ldf.fi/schema/henko/Name> .
           ?name skos:prefLabel ?label .
-          ?nameUsage <http://ldf.fi/schema/henkilonimisto/hasName> ?name .
-          ?nameUsage <http://ldf.fi/schema/henkilonimisto/count> ?lkm .
-          ?used <http://ldf.fi/schema/henkilonimisto/isUsed> ?nameUsage .
+          ?nameUsage <http://ldf.fi/schema/henko/hasName> ?name .
+          ?nameUsage <http://ldf.fi/schema/henko/count> ?lkm .
+          ?used <http://ldf.fi/schema/henko/isUsed> ?nameUsage .
           ?used a ?typed .
           ?typed skos:prefLabel ?type .
-          OPTIONAL {?nameUsage <http://ldf.fi/schema/henkilonimisto/gender> ?gender .
+          OPTIONAL {?nameUsage <http://ldf.fi/schema/henko/gender> ?gender .
           }
           FILTER(lang(?type) = 'fi')
         } GROUP BY ?label ?gender ?type
