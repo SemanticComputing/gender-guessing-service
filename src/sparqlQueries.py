@@ -29,13 +29,13 @@ class SparqlQueries(object):
             "$name"
           }
           BIND(STRLANG(?ngram,"fi") AS ?label)
-          ?name a <http://ldf.fi/schema/henko/Name> .
+          ?name a <http://ldf.fi/schema/henko/WrittenNameForm> .
           ?name skos:prefLabel ?label .
           ?nameUsage <http://ldf.fi/schema/henko/hasName> ?name .
           ?nameUsage <http://ldf.fi/schema/henko/count> ?lkm .
           ?used <http://ldf.fi/schema/henko/isUsed> ?nameUsage .
           ?used a ?typed .
-          ?typed skos:prefLabel ?type .
+          ?typed rdfs:label|skos:prefLabel ?type .
           OPTIONAL {?nameUsage <http://ldf.fi/schema/henko/gender> ?gender .
           }
           FILTER(lang(?type) = 'fi')
