@@ -19,6 +19,14 @@ For more information, check requirements.txt
 
 ### Command line usage
 
+First set environment variable GENDER_IDENTIFICATION_CONFIG_ENV. 
+
+Setting it up in Ubuntu (example):
+```
+export GENDER_IDENTIFICATION_CONFIG_ENV='DEFAULT'
+
+```
+
 To run:
 
 ```
