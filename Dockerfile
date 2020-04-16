@@ -16,6 +16,10 @@ WORKDIR /app
 COPY src ./src
 COPY httpInterface.py ./
 
+ENV GENDER_IDENTIFICATION_CONFIG_ENV DEFAULT
+ENV CONF_FILE=/app/conf/config.ini 
+COPY conf/config.ini $CONF_FILE
+
 RUN chgrp -R 0 /app \
  && chmod -R g+rwX /app
 
