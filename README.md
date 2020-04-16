@@ -31,7 +31,7 @@ In order to use these configurations, set the environment variable GENDER_IDENTI
 
 ### Command line usage
 
-First set environment variable GENDER_IDENTIFICATION_CONFIG_ENV. 
+First set environment variable GENDER_IDENTIFICATION_CONFIG_ENV.
 
 Setting it up in Ubuntu (example):
 ```
@@ -91,3 +91,9 @@ Results are retuned in json format:
 `./docker-build.sh`: builds the service
 
 `./docker-run.sh`: runs the service
+
+The following configuration parameter can be passed as environment variable to the container:
+
+* HENKO_ENDPOINT_URL
+
+Other configuration parameters should be set by using a config.ini (see section Configurations above) which can be e.g. bind mounted to container's path `/app/conf/config.ini`.
