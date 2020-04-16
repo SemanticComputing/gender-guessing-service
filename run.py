@@ -21,6 +21,11 @@ import sys
 import os
 from src.genderIdentifier import GenderIdentifier
 
+import configparser
+from configparser import Error, ParsingError, MissingSectionHeaderError, NoOptionError, DuplicateOptionError, DuplicateSectionError, NoSectionError
+import traceback
+
+
 from argparse import ArgumentParser
 from argparse import RawDescriptionHelpFormatter
 
@@ -113,6 +118,51 @@ USAGE
         sys.stderr.write(program_name + ": " + repr(e) + "\n")
         sys.stderr.write(indent + "  for help use --help")
         return 2
+
+def read_configs(env):
+    henko_endpoint=""
+    gender_guess_threshold=0.8
+
+    try:
+        config = configparser.ConfigParser()
+        config.read('conf/config.ini')
+        if env in config:
+            henko_endpoint, gender_guess_threshold = read_env_config(config, env)
+        elif env == None or len(env) == 0:
+            err_msg = 'The environment is not set: %s' % (env)
+            raise Exception(err_msg)
+        else:
+            if 'DEFAULT' in config:
+                henko_endpoint, gender_guess_threshold = read_env_config(config)
+            else:
+                err_msg = 'Cannot find section headers: %s, %s' % (env, 'DEFAULT')
+                raise MissingSectionHeaderError(err_msg)
+    except Error as e:
+        print("[ERROR] ConfigParser error:", sys.exc_info()[0])
+        traceback.print_exc()
+        sys.exit("Internal Server Error (500)")
+    except Exception as err:
+        print("[ERROR] Unexpected error:", sys.exc_info()[0])
+        traceback.print_exc()
+        sys.exit("Internal Server Error (500)")
+
+    return henko_endpoint, gender_guess_threshold
+
+def read_env_config(config, env='DEFAULT'):
+    henko_endpoint=""
+    gender_guess_threshold=0.8
+    if 'henko_endpoint' in config[env]:
+        henko_endpoint = config[env]['henko_endpoint']
+    else:
+        print("Unable to find: henko_endpoint in ", config[env])
+
+
+    if 'gender_guess_threshold' in config[env]:
+        gender_guess_threshold = float(config[env]['gender_guess_threshold'])
+    else:
+        print("Unable to find: gender_guess_threshold in ", config['DEFAULT'])
+
+    return henko_endpoint, gender_guess_threshold
 
 if __name__ == "__main__":
     if DEBUG:

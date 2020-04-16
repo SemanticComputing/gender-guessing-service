@@ -13,7 +13,7 @@ class GenderIdentifier(object):
     '''
 
 
-    def __init__(self, name="", threshold=0.8):
+    def __init__(self, name="", threshold=0.8, endpoint = ""):
         '''
         Constructor
         '''
@@ -30,7 +30,7 @@ class GenderIdentifier(object):
                 
         self._name = name
         if name != None:
-            self._gender, self._probabilities = self.identify_gender(name)
+            self._gender, self._probabilities = self.identify_gender(name, endpoint)
         else:
             self.gender = None   
             
@@ -60,9 +60,9 @@ class GenderIdentifier(object):
     def set_probability_threshold(self, threshold):
         self._probability_threshold = threshold
         
-    def identify_gender(self, name):
+    def identify_gender(self, name, endpoint):
         sparql = SparqlQueries()
-        females, males, familyname = sparql.get_name_data(name)
+        females, males, familyname = sparql.get_name_data(name, endpoint)
         
         self.females = females
         self.males = males

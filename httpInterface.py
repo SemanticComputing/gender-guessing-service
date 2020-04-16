@@ -1,12 +1,16 @@
 #!nerdl/bin/python3
 from flask import Flask, Response, jsonify
-from flask import request
+from flask import request, abort
 
 from flask_cors import CORS, cross_origin
 from src.genderIdentifier import GenderIdentifier
 import traceback
-import logging
+import logging, os, sys
 from datetime import datetime
+
+import configparser
+from configparser import Error, ParsingError, MissingSectionHeaderError, NoOptionError, DuplicateOptionError, DuplicateSectionError, NoSectionError
+import traceback
 
 app = Flask(__name__)
 cors = CORS(app)
@@ -57,6 +61,23 @@ def api_message():
     app.logger.info('METHODS: %s', request.method)
     app.logger.info('HEADERS: %s', request.headers)
 
+    env = 'DEFAULT'
+
+    # read environment from environment variable
+    try:
+        env = os.environ['GENDER_IDENTIFICATION_CONFIG_ENV']
+    except KeyError as kerr:
+        print("Environment variable GENDER_IDENTIFICATION_CONFIG_ENV not set:", sys.exc_info()[0])
+        traceback.print_exc()
+        env = None
+        abort(500, 'Problem with setup: internal server error')
+    except Exception as err:
+        print("Unexpected error:", sys.exc_info()[0])
+        traceback.print_exc()
+        env = None
+        abort(500, 'Unexpected Internal Server Error')
+    endpoint, threshold = read_configs(env)
+
     try:
         if request.method == "POST":
             print("Data (form):", request.form)
@@ -67,13 +88,13 @@ def api_message():
                     threshold = 0
                     name = None
 
-                    result['results'] = quess(threshold=threshold, name=name)
+                    result['results'] = quess(threshold=threshold, name=name, endpoint=endpoint)
 
                 elif request.headers['Content-type'] == "application/octet-stream":
                     threshold = 0
                     name = None
 
-                    result['results'] = quess(threshold=threshold, name=name)
+                    result['results'] = quess(threshold=threshold, name=name, endpoint=endpoint)
                 else:
                     print("Bad type", request.headers['Content-Type'])
                     return "415 Unsupported Media Type ;)"
@@ -83,7 +104,7 @@ def api_message():
                     print("Parse from ARGS")
                     name = request.form['name']
                     threshold = request.form['threshold']
-                    result['results'] = quess(threshold=threshold, name=name)
+                    result['results'] = quess(threshold=threshold, name=name, endpoint=endpoint)
                 elif 'name' in request.args and 'threshold' in request.args:
                     print("Parse from ARGS")
                     threshold = request.args.get('threshold')
@@ -93,13 +114,13 @@ def api_message():
                     else:
                         app.logger.error("Cannot get value: %s ", request.values)
                     if name != None and threshold != None:
-                        result['results'] = quess(threshold=threshold, name=name)
+                        result['results'] = quess(threshold=threshold, name=name, endpoint=endpoint)
                 elif 'Name' in request.headers and 'Threshold' in request.headers:
                     print("Parse from ARGS")
                     threshold = float(request.headers['Threshold'])
                     name = request.headers['Name']
                     if name != None and threshold != None:
-                        result['results'] = quess(threshold=threshold, name=name)
+                        result['results'] = quess(threshold=threshold, name=name, endpoint=endpoint)
                 else:
                     print("Unable to find parameters.")
                     print("Form:", request.form)
@@ -123,7 +144,7 @@ def api_message():
                     app.logger.error("Cannot get value: %s ", request.values)
             if name != None and threshold != None:
                 app.logger.info("Gets value: %s %s", name, threshold)
-                result['results'] = quess(threshold=threshold, name=name)
+                result['results'] = quess(threshold=threshold, name=name, endpoint=endpoint)
             else:
 
                 message = "Parameters could not be identified: name=%s, threshold=%s" % (str(name), str(threshold))
@@ -146,19 +167,34 @@ def api_message():
         
 @app.route('/guess/<name>')
 def guess_gender_using_default_threshold(name):
-    print("Got:", name)
+    env = 'DEFAULT'
+
+    # read environment from environment variable
+    try:
+        env = os.environ['GENDER_IDENTIFICATION_CONFIG_ENV']
+    except KeyError as kerr:
+        print("Environment variable GENDER_IDENTIFICATION_CONFIG_ENV not set:", sys.exc_info()[0])
+        traceback.print_exc()
+        env = None
+        abort(500, 'Problem with setup: internal server error')
+    except Exception as err:
+        print("Unexpected error:", sys.exc_info()[0])
+        traceback.print_exc()
+        env = None
+        abort(500, 'Unexpected Internal Server Error')
+    endpoint, threshold = read_configs(env)
+
     result = dict()
     result['service'] = "Gender guessing service"
     result['date'] = datetime.today().strftime('%Y-%m-%d')
-    threshold = 0.8
     print("Using default threshold:", threshold)
-    result['results'] = quess(threshold=threshold, name=name)
+    result['results'] = quess(threshold=threshold, name=name, endpoint=endpoint)
     return jsonify(result)
     
-def quess(threshold, name):
+def quess(threshold, name, endpoint):
     try:
         json_response = dict()
-        genId = GenderIdentifier(name=name, threshold=threshold)
+        genId = GenderIdentifier(name=name, threshold=threshold, endpoint=endpoint)
         json_response['name']= genId.get_name()
         json_response['gender']= genId.get_gender()
         json_response['probabilities']= genId.get_gender_probabilities()
@@ -166,6 +202,51 @@ def quess(threshold, name):
     except Exception as e:
         app.logger.error('Error happened!')
         app.logger.error('Something went wrong %s', str(e))
+
+def read_configs(env):
+    henko_endpoint=""
+    gender_guess_threshold=0.8
+
+    try:
+        config = configparser.ConfigParser()
+        config.read('conf/config.ini')
+        if env in config:
+            henko_endpoint, gender_guess_threshold = read_env_config(config, env)
+        elif env == None or len(env) == 0:
+            err_msg = 'The environment is not set: %s' % (env)
+            raise Exception(err_msg)
+        else:
+            if 'DEFAULT' in config:
+                henko_endpoint, gender_guess_threshold = read_env_config(config)
+            else:
+                err_msg = 'Cannot find section headers: %s, %s' % (env, 'DEFAULT')
+                raise MissingSectionHeaderError(err_msg)
+    except Error as e:
+        print("[ERROR] ConfigParser error:", sys.exc_info()[0])
+        traceback.print_exc()
+        abort(500)
+    except Exception as err:
+        print("[ERROR] Unexpected error:", sys.exc_info()[0])
+        traceback.print_exc()
+        abort(500)
+
+    return henko_endpoint, gender_guess_threshold
+
+def read_env_config(config, env='DEFAULT'):
+    henko_endpoint=""
+    gender_guess_threshold=0.8
+    if 'henko_endpoint' in config[env]:
+        henko_endpoint = config[env]['henko_endpoint']
+    else:
+        print("Unable to find: henko_endpoint in ", config[env])
+
+
+    if 'gender_guess_threshold' in config[env]:
+        gender_guess_threshold = float(config[env]['gender_guess_threshold'])
+    else:
+        print("Unable to find: gender_guess_threshold in ", config['DEFAULT'])
+
+    return henko_endpoint, gender_guess_threshold
 
 def shutdown_server():
     func = request.environ.get('werkzeug.server.shutdown')
