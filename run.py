@@ -88,15 +88,32 @@ USAGE
         #parser.add_argument('-v', '--verbose', help="set verbosity level [default: %(default)s]")
         #parser.add_argument(dest="paths", help="paths to folder(s) with source file(s) [default: %(default)s]", metavar="path", nargs='+')
 
+        env = 'DEFAULT'
+
+        # read environment from environment variable
+        try:
+            env = os.environ['GENDER_IDENTIFICATION_CONFIG_ENV']
+        except KeyError as kerr:
+            print("Environment variable GENDER_IDENTIFICATION_CONFIG_ENV not set:", sys.exc_info()[0])
+            traceback.print_exc()
+            env = None
+            sys.exit('Problem with setup: internal server error')
+        except Exception as err:
+            print("Unexpected error:", sys.exc_info()[0])
+            traceback.print_exc()
+            env = None
+            sys.exit('Unexpected Internal Server Error')
+        endpoint, threshold = read_configs(env)
+
         # Process arguments
         args = parser.parse_args()
 
         #paths = args.paths
         #verbose = int(args.verbose)
         name = args.name
-        threshold = args.threshold        
+        threshold = args.threshold
         
-        genId = GenderIdentifier(name=name, threshold=threshold)
+        genId = GenderIdentifier(name=name, threshold=threshold, endpoint=endpoint)
 
         #if verbose > 0:
         #    print("Verbose mode on")
