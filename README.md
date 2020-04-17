@@ -88,11 +88,9 @@ Results are retuned in json format:
 
 ## Running in Docker
 
-`./docker-build.sh`: builds the service
+`docker-compose up`: builds and runs Gender guessing service and the needed HENKO Fuseki service
 
-`./docker-run.sh`: runs the service
-
-The following configuration parameter can be passed as environment variable to the container:
+The following configuration parameter must be passed as environment variable to the container:
 
 * HENKO_ENDPOINT_URL
 
