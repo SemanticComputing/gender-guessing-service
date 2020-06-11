@@ -1,15 +1,9 @@
-FROM alpine:3.8
-
-ENV GUNICORN_WORKER_AMOUNT 4
-ENV GUNICORN_TIMEOUT 300
-ENV GUNICORN_RELOAD ""
-
-RUN apk add python3 && rm -rf /var/cache/apk/*
+FROM python:3.6-slim-buster
 
 COPY requirements.txt ./requirements.txt
 RUN pip3 install -r requirements.txt
-
 RUN pip3 install gunicorn
+ENV GUNICORN_BIN /usr/local/bin/gunicorn
 
 WORKDIR /app
 
@@ -22,6 +16,10 @@ COPY conf/config.ini $CONF_FILE
 
 RUN chgrp -R 0 /app \
  && chmod -R g+rwX /app
+
+ENV GUNICORN_WORKER_AMOUNT 4
+ENV GUNICORN_TIMEOUT 300
+ENV GUNICORN_RELOAD ""
 
 EXPOSE 5000
 

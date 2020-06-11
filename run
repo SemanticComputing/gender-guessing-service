@@ -2,4 +2,4 @@
 
 sed -i "s|^henko_endpoint\ *=\ *.*|henko_endpoint\ =\ $HENKO_ENDPOINT_URL|" "$CONF_FILE"
 
-/usr/bin/gunicorn $GUNICORN_RELOAD -w $GUNICORN_WORKER_AMOUNT -t $GUNICORN_TIMEOUT -b 0.0.0.0:5000 httpInterface:app
+$GUNICORN_BIN $GUNICORN_RELOAD -w $GUNICORN_WORKER_AMOUNT -t $GUNICORN_TIMEOUT -b 0.0.0.0:5000 httpInterface:app
