@@ -86,15 +86,10 @@ def api_message():
                 if request.headers['Content-Type'] == 'text/plain':
 
                     threshold = 0
-                    name = None
+                    name = str(request.data.decode('utf-8'))
 
                     result['results'] = quess(threshold=threshold, name=name, endpoint=endpoint)
 
-                elif request.headers['Content-type'] == "application/octet-stream":
-                    threshold = 0
-                    name = None
-
-                    result['results'] = quess(threshold=threshold, name=name, endpoint=endpoint)
                 else:
                     print("Bad type", request.headers['Content-Type'])
                     return "415 Unsupported Media Type ;)"
