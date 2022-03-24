@@ -88,7 +88,7 @@ def api_message():
                     threshold = 0
                     name = str(request.data.decode('utf-8'))
 
-                    result['results'] = quess(threshold=threshold, name=name, endpoint=endpoint)
+                    result['data'] = quess(threshold=threshold, name=name, endpoint=endpoint)
 
                 else:
                     print("Bad type", request.headers['Content-Type'])
@@ -99,7 +99,7 @@ def api_message():
                     print("Parse from ARGS")
                     name = request.form['name']
                     threshold = request.form['threshold']
-                    result['results'] = quess(threshold=threshold, name=name, endpoint=endpoint)
+                    result['data'] = quess(threshold=threshold, name=name, endpoint=endpoint)
                 elif 'name' in request.args and 'threshold' in request.args:
                     print("Parse from ARGS")
                     threshold = request.args.get('threshold')
@@ -109,13 +109,13 @@ def api_message():
                     else:
                         app.logger.error("Cannot get value: %s ", request.values)
                     if name != None and threshold != None:
-                        result['results'] = quess(threshold=threshold, name=name, endpoint=endpoint)
+                        result['data'] = quess(threshold=threshold, name=name, endpoint=endpoint)
                 elif 'Name' in request.headers and 'Threshold' in request.headers:
                     print("Parse from ARGS")
                     threshold = float(request.headers['Threshold'])
                     name = request.headers['Name']
                     if name != None and threshold != None:
-                        result['results'] = quess(threshold=threshold, name=name, endpoint=endpoint)
+                        result['data'] = quess(threshold=threshold, name=name, endpoint=endpoint)
                 else:
                     print("Unable to find parameters.")
                     print("Form:", request.form)
@@ -139,7 +139,7 @@ def api_message():
                     app.logger.error("Cannot get value: %s ", request.values)
             if name != None and threshold != None:
                 app.logger.info("Gets value: %s %s", name, threshold)
-                result['results'] = quess(threshold=threshold, name=name, endpoint=endpoint)
+                result['data'] = quess(threshold=threshold, name=name, endpoint=endpoint)
             else:
 
                 message = "Parameters could not be identified: name=%s, threshold=%s" % (str(name), str(threshold))
@@ -155,8 +155,8 @@ def api_message():
     except Exception as e:
         print("Error happened during execution", e)
         traceback.print_exc()
-        result['results'] = {'error':str(e), "status":500, 'message':"Error happened during execution", 'params':request.values}
-        app.logger.error('this is an ERROR message %s', result['results'])
+        result['data'] = {'error':str(e), "status":500, 'message':"Error happened during execution", 'params':request.values}
+        app.logger.error('this is an ERROR message %s', result['data'])
 
     return jsonify(result)
         
