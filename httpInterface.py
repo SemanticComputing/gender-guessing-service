@@ -183,7 +183,7 @@ def guess_gender_using_default_threshold(name):
     result['service'] = "Gender guessing service"
     result['date'] = datetime.today().strftime('%Y-%m-%d')
     print("Using default threshold:", threshold)
-    result['results'] = quess(threshold=threshold, name=name, endpoint=endpoint)
+    result['data'] = quess(threshold=threshold, name=name, endpoint=endpoint)
     return jsonify(result)
     
 def quess(threshold, name, endpoint):
