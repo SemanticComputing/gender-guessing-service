@@ -1,6 +1,13 @@
+lib64
+*.log
+.idea
+.idea/*
 venv/*
-*.pydevproject
-*.project
+finerwrapper/*
+*.log
+src/__pycache__/*
+__pycache__/*
 *.pyc
-.settings/*
-venv*
+regex-service/*
+regex-service
+*.xml
