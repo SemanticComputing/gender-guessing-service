@@ -1,4 +1,4 @@
-# gender-guessing-service (DEPRECATED, updated version at: [GitHUB](https://github.com/SemanticComputing/gender-guessing-service))
+# gender-guessing-service
 
 
 ## About
