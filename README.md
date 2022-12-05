@@ -7,7 +7,7 @@ Using person name ontology (http://light.onki.fi/henkilonimisto/en/) the applica
 
 ### API
 
-The service API description can be found from (Swagger)[https://app.swaggerhub.com/apis-docs/SeCo/nlp.ldf.fi/1.0.0#/gender-identification].
+The service API description can be found from [Swagger](https://app.swaggerhub.com/apis-docs/SeCo/nlp.ldf.fi/1.0.0#/gender-identification).
 
 ### Publications
 
