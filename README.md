@@ -5,6 +5,10 @@
 
 Using person name ontology (http://light.onki.fi/henkilonimisto/en/) the application calculates statistically most probable gender for a person name. It uses the first names to identify person's gender and therefore using more than one first names is recommended to get accurate reading. It cannot be used yet to identify other than finnish and maybe swedish names and it only can identify 2 genders: male and female (because the ontology uses data from the Population Register Centre).
 
+### API
+
+The service API description can be found from (Swagger)[https://app.swaggerhub.com/apis-docs/SeCo/nlp.ldf.fi/1.0.0#/gender-identification].
+
 ### Publications
 
 * Minna Tamper, Petri Leskinen, Jouni Tuominen and Eero Hyvönen: Modeling and Publishing Finnish Person Names as a Linked Open Data Ontology. 3rd Workshop on Humanities in the Semantic Web (WHiSe 2020), pp. 3-14, CEUR Workshop Proceedings, vol. 2695, June, 2020.

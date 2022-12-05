@@ -24,6 +24,7 @@ from src.genderIdentifier import GenderIdentifier
 import configparser
 from configparser import Error, ParsingError, MissingSectionHeaderError, NoOptionError, DuplicateOptionError, DuplicateSectionError, NoSectionError
 import traceback
+from datetime import datetime as dt
 
 
 from argparse import ArgumentParser
@@ -134,7 +135,14 @@ USAGE
         indent = len(program_name) * " "
         sys.stderr.write(program_name + ": " + repr(e) + "\n")
         sys.stderr.write(indent + "  for help use --help")
-        return 2
+
+        message = "<h3>Unable to process request</h3><p>Unable to retrieve results for text (%s).</p>" % str(
+            request.args.get('text'))
+        message += "<p>Please give parameters using GET or POST method. GET method example: <a href='http://127.0.0.1:5000/?text=Minna Susanna Claire Tamper' target='_blank'>http://127.0.0.1:5000/?text=Minna Susanna Claire Tamper</a></p>" + \
+                   "POST method can be used by transmitting the parameters using url, header, or a form."
+        data = {"status": -1, "error": str(message), "service": "Gender Identification Service",
+                "timestamp": dt.today().strftime('%Y-%m-%d %H:%M:%S'), "version": "version 1.1-beta"}
+        return data
 
 def read_configs(env):
     henko_endpoint=""
